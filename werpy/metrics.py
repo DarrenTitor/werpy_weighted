@@ -58,9 +58,11 @@ def calculations(reference, hypothesis) -> np.ndarray:
             if reference_word[i - 1] == hypothesis_word[j - 1]:
                 ldm[i, j] = ldm[i - 1, j - 1]
             else:
-                substitution = ldm[i - 1, j - 1] + 1
-                insertion = ldm[i, j - 1] + 1
-                deletion = ldm[i - 1, j] + 1
+                # https://github.com/usnistgov/SCTK/blob/f48376a203ab17f0d479995d87275db6772dcb4a/doc/sclite.htm#L173
+                # cost of correct words, insertions, deletions and substitutions as 0, 3, 3 and 4 respectively
+                substitution = ldm[i - 1, j - 1] + 4
+                insertion = ldm[i, j - 1] + 3
+                deletion = ldm[i - 1, j] + 3
                 ldm[i, j] = min(substitution, insertion, deletion)
 
     ld = ldm[i, j]
