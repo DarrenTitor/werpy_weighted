@@ -76,17 +76,17 @@ def calculations(reference, hypothesis) -> np.ndarray:
             i -= 1
             j -= 1
         else:
-            if i > 0 and j > 0 and ldm[i, j] == ldm[i - 1, j - 1] + 1:
-                substitutions += 1
+            if i > 0 and j > 0 and ldm[i, j] == ldm[i - 1, j - 1] + 4:
+                substitutions += 4
                 substituted_words.append((reference_word[i - 1], hypothesis_word[j - 1]))
                 i -= 1
                 j -= 1
-            elif j > 0 and ldm[i, j] == ldm[i, j - 1] + 1:
-                insertions += 1
+            elif j > 0 and ldm[i, j] == ldm[i, j - 1] + 3:
+                insertions += 3
                 inserted_words.append(hypothesis_word[j - 1])
                 j -= 1
-            elif i > 0 and ldm[i, j] == ldm[i - 1, j] + 1:
-                deletions += 1
+            elif i > 0 and ldm[i, j] == ldm[i - 1, j] + 3:
+                deletions += 3
                 deleted_words.append(reference_word[i - 1])
                 i -= 1
 
