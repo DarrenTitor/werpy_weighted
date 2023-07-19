@@ -49,9 +49,9 @@ def calculations(reference, hypothesis) -> np.ndarray:
     i, j = 0, 0
     ldm = np.zeros((m + 1, n + 1), dtype=int)
     for i in range(m + 1):
-        ldm[i, 0] = i
+        ldm[i, 0] = i * 3
     for j in range(n + 1):
-        ldm[0, j] = j
+        ldm[0, j] = j * 3
 
     for i in range(1, m + 1):
         for j in range(1, n + 1):
@@ -76,16 +76,16 @@ def calculations(reference, hypothesis) -> np.ndarray:
             i -= 1
             j -= 1
         else:
-            if i > 0 and j > 0 and ldm[i, j] == ldm[i - 1, j - 1] + 1:
+            if i > 0 and j > 0 and ldm[i, j] == ldm[i - 1, j - 1] + 4:
                 substitutions += 1
                 substituted_words.append((reference_word[i - 1], hypothesis_word[j - 1]))
                 i -= 1
                 j -= 1
-            elif j > 0 and ldm[i, j] == ldm[i, j - 1] + 1:
+            elif j > 0 and ldm[i, j] == ldm[i, j - 1] + 3:
                 insertions += 1
                 inserted_words.append(hypothesis_word[j - 1])
                 j -= 1
-            elif i > 0 and ldm[i, j] == ldm[i - 1, j] + 1:
+            elif i > 0 and ldm[i, j] == ldm[i - 1, j] + 3:
                 deletions += 1
                 deleted_words.append(reference_word[i - 1])
                 i -= 1
